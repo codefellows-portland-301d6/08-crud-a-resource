@@ -21,7 +21,7 @@
   // Set up a DB table for articles.
   Article.createTable = function() {
     webDB.execute(
-      'CREATE TABLE articles (title VARCHAR, category VARCHAR, author VARCHAR, authorUrl VARCHAR, publishedOn DATE, body VARCHAR)', // DONE: What SQL command do we run here inside these quotes?
+      'CREATE TABLE articles (title VARCHAR, category VARCHAR, author VARCHAR, authorUrl VARCHAR, publishedOn DATE, body VARCHAR)', // TODO: What SQL command do we run here inside these quotes?
       function() {
         console.log('Successfully set up the articles table.');
       }
@@ -56,7 +56,14 @@
             /* TODO:
                1 - 'insert' the newly-instantiated article in the DB:
                 (hint: what can we call on this article instance?). */
-
+            webDB.execute(
+              [
+                {
+                  sql: 'INSERT INTO articles (title, category, author, authorUrl, publishedOn, body) VALUES (?, ?, ?, ?, ?, ?);',
+                  'data': [this.title, this.category, this.author, this.authorUrl, this.publishedOn, this.body]
+                }
+              ]
+            );
           });
           // Now get ALL the records out the DB, with their database IDs:
           webDB.execute('', function(rows) { // TODO: select our now full table

@@ -78,8 +78,8 @@
         {
           // TODO: Insert an article instance into the database:
           // NOTE: this method will be called elsewhere after we retrieve our JSON
-          'sql': '', // <----- complete our SQL command here, inside the quotes.
-          'data': [this.title, this.author, this.authorUrl, this.category, this.publishedOn, this.body]
+          'sql': 'INSERT INTO articles (title, category, author, authorUrl, publishedOn, body) VALUES (?, ?, ?, ?, ?, ?);', // <----- complete our SQL command here, inside the quotes.
+          'data': [this.title, this.category, this.author, this.authorUrl, this.publishedOn, this.body]
         }
       ]
     );
@@ -92,7 +92,7 @@
           // TODO: Delete an article instance from the database based on its id:
           /* Note: this is an advanced admin option, so you will need to test
               out an individual query in the console */
-          'sql': '', // <--- complete the command here, inside the quotes;
+          'sql': 'DELETE FROM articles WHERE id = ?', // <--- complete the command here, inside the quotes;
           'data': [this.id]
         }
       ]
@@ -102,7 +102,9 @@
   Article.truncateTable = function() {
     webDB.execute(
       // TODO: Use correct SQL syntax to delete all records from the articles table.
-      'DELETE ...;' // <----finish the command here, inside the quotes.
+      'DELETE FROM articles;', function() {
+        console.log('success');
+      } // <----finish the command here, inside the quotes.
     );
   };
 
@@ -145,5 +147,6 @@
   };
 
 // TODO: ensure that our table has been setup.
+  Article.createTable();
   module.Article = Article;
 })(window);

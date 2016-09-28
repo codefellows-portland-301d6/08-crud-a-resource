@@ -57,8 +57,7 @@
             /* TODO:
                1 - 'insert' the newly-instantiated article in the DB:
                 (hint: what can we call on this article instance?). */
-            webDB.execute('INSERT INTO articles (title, category, author, authorUrl, publishedOn, body) VALUES (article.title, article.category, article.author, article.authorUrl, article.publishedOn, article.body)');
-            // this.title, this.category
+            article.insertRecord();
           });
           // Now get ALL the records out the DB, with their database IDs:
           webDB.execute('SELECT * FROM articles', function(rows) { // TODO: select our now full table
@@ -80,7 +79,7 @@
         {
           // TODO: Insert an article instance into the database:
           // NOTE: this method will be called elsewhere after we retrieve our JSON
-          'sql': '', // <----- complete our SQL command here, inside the quotes.
+          'sql': 'INSERT INTO articles (title, category, author, authorUrl, publishedOn, body)', // <----- complete our SQL command here, inside the quotes.
           'data': [this.title, this.author, this.authorUrl, this.category, this.publishedOn, this.body]
         }
       ]

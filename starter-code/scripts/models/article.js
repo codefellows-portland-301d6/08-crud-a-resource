@@ -57,7 +57,8 @@
             /* TODO:
                1 - 'insert' the newly-instantiated article in the DB:
                 (hint: what can we call on this article instance?). */
-
+            webDB.execute('INSERT INTO articles (title, category, author, authorUrl, publishedOn, body) VALUES (article.title, article.category, article.author, article.authorUrl, article.publishedOn, article.body)');
+            // this.title, this.category
           });
           // Now get ALL the records out the DB, with their database IDs:
           webDB.execute('', function(rows) { // TODO: select our now full table

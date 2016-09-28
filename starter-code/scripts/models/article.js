@@ -43,6 +43,9 @@
 
     webDB.execute('SELECT * FROM articles', function(rows) { // TODO: fill these quotes to query our table.
       if (rows.length) {
+        Article.loadAll(rows);
+        nextFunction();
+
         /* TODO:
            1 - Use Article.loadAll to instanitate these rows,
            2 - Pass control to the view by invoking the next function that

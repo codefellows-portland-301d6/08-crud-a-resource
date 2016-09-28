@@ -47,7 +47,8 @@
            1 - Use Article.loadAll to instanitate these rows,
            2 - Pass control to the view by invoking the next function that
                 was passed in to Article.fetchAll */
-
+        Article.loadAll(rows);
+        nextFunction();
 
       } else {
         console.log('else is running');
@@ -61,11 +62,13 @@
             article.insertRecord();
           });
           // Now get ALL the records out the DB, with their database IDs:
-          webDB.execute('', function(rows) { // TODO: select our now full table
+          webDB.execute('SELECT * FROM articles', function(rows) {
+            console.log('article id\'s', rows); // TODO: select our now full table
             // TODO:
             // 1 - Use Article.loadAll to generate our rows,
+            Article.loadAll(rows);
             // 2 - Pass control to the view by calling the next function that was passed in to Article.fetchAll
-
+            nextFunction();
           });
         });
       }
@@ -103,7 +106,7 @@
   Article.truncateTable = function() {
     webDB.execute(
       // TODO: Use correct SQL syntax to delete all records from the articles table.
-      'DELETE ...;' // <----finish the command here, inside the quotes.
+      'DELETE FROM articles;' // <----finish the command here, inside the quotes.
     );
   };
 
@@ -146,5 +149,6 @@
   };
 
 // TODO: ensure that our table has been setup.
+  Article.createTable();
   module.Article = Article;
 })(window);

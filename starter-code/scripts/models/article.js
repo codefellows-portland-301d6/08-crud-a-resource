@@ -21,7 +21,7 @@
   // Set up a DB table for articles.
   Article.createTable = function() {
     webDB.execute(
-      'CREATE TABLE articles (title VARCHAR, category VARCHAR, author VARCHAR, authorUrl VARCHAR, publishedOn DATE, body VARCHAR)', // TODO: What SQL command do we run here inside these quotes?
+      'CREATE TABLE IF NOT EXISTS articles (title VARCHAR, category VARCHAR, author VARCHAR, authorUrl VARCHAR, publishedOn DATE, body VARCHAR)', // TODO: What SQL command do we run here inside these quotes?
       function() {
         console.log('Successfully set up the articles table.');
       }
@@ -47,7 +47,8 @@
            1 - Use Article.loadAll to instanitate these rows,
            2 - Pass control to the view by invoking the next function that
                 was passed in to Article.fetchAll */
-        Article.loadAll(nextFunction);
+        Article.loadAll(rows);
+        nextFunction();
       } else {
         $.getJSON('/data/hackerIpsum.json', function(responseData) {
           // Save each article from this JSON file, so we don't need to request it next time:
@@ -60,7 +61,7 @@
               [
                 {
                   sql: 'INSERT INTO articles (title, category, author, authorUrl, publishedOn, body) VALUES (?, ?, ?, ?, ?, ?);',
-                  'data': [this.title, this.category, this.author, this.authorUrl, this.publishedOn, this.body]
+                  'data': [article.title, article.category, article.author, article.authorUrl, article.publishedOn, article.body]
                 }
               ]
             );
@@ -70,7 +71,8 @@
             // TODO:
             // 1 - Use Article.loadAll to generate our rows,
             // 2 - Pass control to the view by calling the next function that was passed in to Article.fetchAll ... 'nextFunction'
-            Article.loadAll(nextFunction);
+            Article.loadAll(rows);
+            nextFunction();
           });
         });
       }

@@ -58,12 +58,7 @@
             /* DONE: TODO:
                1 - 'insert' the newly-instantiated article in the DB:
                 (hint: what can we call on this article instance?). */
-            // webDB.execute([
-              // {
-              //   'sql': 'INSERT INTO articles (title, category, author, authorUrl, publishedOn, body) VALUES (?, ?, ?, ?, ?, ?);',
-              //   'data': [obj.title, obj.category, obj.author, obj.authorUrl, obj.publishedOn, obj.body]
-              // }
-            // ]);
+            
             article.insertRecord();
           });
           // Now get ALL the records out the DB, with their database IDs:

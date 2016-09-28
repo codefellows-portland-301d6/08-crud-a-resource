@@ -51,7 +51,6 @@
         nextFunction();
 
       } else {
-        console.log('else is running');
         $.getJSON('/data/hackerIpsum.json', function(responseData) {
           // Save each article from this JSON file, so we don't need to request it next time:
           responseData.forEach(function(obj) {
@@ -63,7 +62,7 @@
           });
           // Now get ALL the records out the DB, with their database IDs:
           webDB.execute('SELECT * FROM articles', function(rows) {
-            console.log('article id\'s', rows); // TODO: select our now full table
+            // TODO: select our now full table
             // TODO:
             // 1 - Use Article.loadAll to generate our rows,
             Article.loadAll(rows);

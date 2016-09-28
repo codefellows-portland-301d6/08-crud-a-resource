@@ -21,7 +21,7 @@
   // Set up a DB table for articles.
   Article.createTable = function() {
     webDB.execute(
-      'CREATE TABLE IF NOT EXISTS articleTable title VARCHAR, category VARCHAR, author VARCHAR, authorUrl VARCHAR, publishedOn DATE, body VARCHAR', // DONE: What SQL command do we run here inside these quotes?
+      'CREATE TABLE IF NOT EXISTS articleTable(title VARCHAR, category VARCHAR, author VARCHAR, authorUrl VARCHAR, publishedOn DATE, body VARCHAR);', // DONE: What SQL command do we run here inside these quotes?
       function() {
         console.log('Successfully set up the articles table.');
       }
@@ -42,25 +42,27 @@
       Otherwise (if the DB is empty) we need to retrieve the JSON and process it. */
 
     webDB.execute('SELECT * FROM articleTable', function(rows) { // DONE: fill these quotes to query our table.
+      console.log(rows);
       if (rows.length) {
         /* DONE:
            1 - Use Article.loadAll to instanitate these rows,
            2 - Pass control to the view by invoking the next function that
                 was passed in to Article.fetchAll */
-        Article.loadAll();
-        nextFunction();
+        Article.loadAll(rows);
+        articleView.renderIndexPage();
       } else {
         $.getJSON('/data/hackerIpsum.json', function(responseData) {
           // Save each article from this JSON file, so we don't need to request it next time:
           responseData.forEach(function(obj) {
             var article = new Article(obj); // This will instantiate an article instance based on each article object from our JSON.
-
-            webDB.execute('INSERT INTO articleTable VALUES (this.title, this.category, this.author, this.authorUrl, this.publishedOn, this.body)');
+            webDB.execute('INSERT INTO articleTable VALUES (article.title, article.category, article.author, article.authorUrl, article.publishedOn, article.body)');
             /* DONE:
                1 - 'insert' the newly-instantiated article in the DB:
                 (hint: what can we call on this article instance?). */
 
           });
+
+
           // Now get ALL the records out the DB, with their database IDs:
           webDB.execute('SELECT * FROM articleTable', function(rows) { // DONE: select our now full table
             // DONE:
@@ -94,7 +96,7 @@
           // DONE: Delete an article instance from the database based on its id:
           /* Note: this is an advanced admin option, so you will need to test
               out an individual query in the console */
-          'sql': 'DELETE FROM articleTable WHERE id = this.id', // <--- complete the command here, inside the quotes;
+          'sql': 'DELETE FROM articleTable WHERE id = this.id;', // <--- complete the command here, inside the quotes;
           'data': [this.id]
         }
       ]
@@ -103,8 +105,8 @@
 
   Article.truncateTable = function() {
     webDB.execute(
-      // TODO: Use correct SQL syntax to delete all records from the articles table.
-      'DELETE ...;' // <----finish the command here, inside the quotes.
+      // DONE: Use correct SQL syntax to delete all records from the articles table.
+      'DELETE * FROM articleTable;' // <----finish the command here, inside the quotes.
     );
   };
 
@@ -145,7 +147,7 @@
       };
     });
   };
-
+  Article.createTable();
 // TODO: ensure that our table has been setup.
   module.Article = Article;
 })(window);

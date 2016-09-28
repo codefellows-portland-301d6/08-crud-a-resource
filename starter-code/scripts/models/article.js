@@ -20,6 +20,7 @@
 
   // Set up a DB table for articles.
   Article.createTable = function() {
+    console.log('createTable called');
     webDB.execute(
       'CREATE TABLE IF NOT EXISTS articles (id INTEGER PRIMARY KEY, title VARCHAR, category VARCHAR, author VARCHAR, authorUrl VARCHAR, publishedOn DATE, body VARCHAR);', // TODO: What SQL command do we run here inside these quotes?
       function() {
@@ -30,12 +31,14 @@
 
   // DONE: Refactor to expect the data from the database, rather than localStorage.
   Article.loadAll = function(rows) {
+    console.log('loadAll called');
     Article.allArticles = rows.map(function(ele) {
       return new Article(ele);
     });
   };
 
   Article.fetchAll = function(nextFunction) {
+    console.log('fetchAll called');
     /*
       If the DB has data already, we'll load up the data
         (most recent article first!), and then hand off control to the View.
@@ -74,13 +77,14 @@
   };
 
   Article.prototype.insertRecord = function() {
+    console.log('insertRecord called');
     webDB.execute(
       [
         {
           // TODO: Insert an article instance into the database:
           // NOTE: this method will be called elsewhere after we retrieve our JSON
-          'sql': 'INSERT INTO articles (title, category, author, authorUrl, publishedOn, body)', // <----- complete our SQL command here, inside the quotes.
-          'data': [this.title, this.author, this.authorUrl, this.category, this.publishedOn, this.body]
+          'sql': 'INSERT INTO articles (title, category, author, authorUrl, publishedOn, body) VALUES (?, ?, ?, ?, ?, ?)', // <----- complete our SQL command here, inside the quotes.
+          'data': [this.title, this.category, this.author, this.authorUrl, this.publishedOn, this.body]
         }
       ]
     );
@@ -146,5 +150,6 @@
   };
 
 // TODO: ensure that our table has been setup.
+  Article.createTable();
   module.Article = Article;
 })(window);

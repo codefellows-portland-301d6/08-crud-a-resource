@@ -57,7 +57,7 @@
           responseData.forEach(function(obj) {
             var article = new Article(obj); // This will instantiate an article instance based on each article object from our JSON.
 
-            Article.insertRecord();
+            article.insertRecord();
 
             /* TODO:
                1 - 'insert' the newly-instantiated article in the DB:
@@ -66,7 +66,7 @@
           });
           // Now get ALL the records out the DB, with their database IDs:
           webDB.execute('SELECT * FROM articles', function(rows) { // TODO: select our now full table
-            Article.loadAll();
+            Article.loadAll(rows);
             nextFunction();
             // TODO:
             // 1 - Use Article.loadAll to generate our rows,

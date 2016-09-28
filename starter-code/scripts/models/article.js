@@ -99,7 +99,7 @@
           // TODO: Delete an article instance from the database based on its id:
           /* Note: this is an advanced admin option, so you will need to test
               out an individual query in the console */
-          'sql': '', // <--- complete the command here, inside the quotes;
+          'sql': 'DELETE FROM articles WHERE id=?;', // <--- complete the command here, inside the quotes;
           'data': [this.id]
         }
       ]
@@ -109,7 +109,7 @@
   Article.truncateTable = function() {
     webDB.execute(
       // TODO: Use correct SQL syntax to delete all records from the articles table.
-      'DELETE ...;' // <----finish the command here, inside the quotes.
+      'DELETE * FROM articles;' // <----finish the command here, inside the quotes.
     );
   };
 

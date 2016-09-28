@@ -151,5 +151,7 @@
   };
 
 // TODO: ensure that our table has been setup.
+  Article.createTable();
+
   module.Article = Article;
 })(window);

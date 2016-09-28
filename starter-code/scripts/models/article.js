@@ -47,7 +47,7 @@
            1 - Use Article.loadAll to instanitate these rows,
            2 - Pass control to the view by invoking the next function that
                 was passed in to Article.fetchAll */
-
+        Article.loadAll(nextFunction);
       } else {
         $.getJSON('/data/hackerIpsum.json', function(responseData) {
           // Save each article from this JSON file, so we don't need to request it next time:

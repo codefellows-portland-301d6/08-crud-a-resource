@@ -41,7 +41,7 @@
         (most recent article first!), and then hand off control to the View.
       Otherwise (if the DB is empty) we need to retrieve the JSON and process it. */
 
-    webDB.execute('', function(rows) { // TODO: fill these quotes to query our table.
+    webDB.execute('SELECT * FROM articles', function(rows) { // TODO: fill these quotes to query our table.
       if (rows.length) {
         /* TODO:
            1 - Use Article.loadAll to instanitate these rows,

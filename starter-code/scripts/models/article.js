@@ -21,7 +21,7 @@
   // Set up a DB table for articles.
   Article.createTable = function() {
     webDB.execute(
-      '', // TODO: What SQL command do we run here inside these quotes?
+      'CREATE TABLE articles (title VARCHAR, category VARCHAR, author VARCHAR, authorUrl VARCHAR, publishedOn DATE, body VARCHAR)', // DONE: What SQL command do we run here inside these quotes?
       function() {
         console.log('Successfully set up the articles table.');
       }
@@ -62,7 +62,7 @@
           webDB.execute('', function(rows) { // TODO: select our now full table
             // TODO:
             // 1 - Use Article.loadAll to generate our rows,
-            // 2 - Pass control to the view by calling the next function that was passed in to Article.fetchAll
+            // 2 - Pass control to the view by calling the next function that was passed in to Article.fetchAll ... 'nextFunction'
 
           });
         });

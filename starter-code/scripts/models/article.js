@@ -56,6 +56,9 @@
           // Save each article from this JSON file, so we don't need to request it next time:
           responseData.forEach(function(obj) {
             var article = new Article(obj); // This will instantiate an article instance based on each article object from our JSON.
+
+            Article.insertRecord();
+
             /* TODO:
                1 - 'insert' the newly-instantiated article in the DB:
                 (hint: what can we call on this article instance?). */

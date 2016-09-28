@@ -21,7 +21,7 @@
   // Set up a DB table for articles.
   Article.createTable = function() {
     webDB.execute(
-      '', // TODO: What SQL command do we run here inside these quotes?
+      'CREATE TABLE IF NOT EXISTS articles (id INTEGER PRIMARY KEY, title VARCHAR, category VARCHAR, author VARCHAR, authorUrl VARCHAR, publishedOn DATE, body VARCHAR)', // TODO: What SQL command do we run here inside these quotes?
       function() {
         console.log('Successfully set up the articles table.');
       }
@@ -76,7 +76,7 @@
         {
           // TODO: Insert an article instance into the database:
           // NOTE: this method will be called elsewhere after we retrieve our JSON
-          'sql': '', // <----- complete our SQL command here, inside the quotes.
+          'sql': 'INSERT INTO articles (title, category, author, authorUrl, publishedOn, body) VALUES (?, ?, ?, ?, ?, ?)', // <----- complete our SQL command here, inside the quotes.
           'data': [this.title, this.author, this.authorUrl, this.category, this.publishedOn, this.body]
         }
       ]

@@ -82,7 +82,7 @@
           // DONE TODO: Insert an article instance into the database:
           // NOTE: this method will be called elsewhere after we retrieve our JSON
           'sql': 'INSERT INTO articles (title, category, author, authorUrl, publishedOn, body) VALUES (?, ?, ?, ?, ?, ?);',
-          'data': [this.title, this.author, this.authorUrl, this.category, this.publishedOn, this.body]
+          'data': [this.title, this.category, this.author, this.authorUrl, this.publishedOn, this.body]
         }
       ]
     );
